@@ -1,13 +1,12 @@
 from sage.all import ZZ, randint
 
-p = None
-
 def generate_distortion_map(E):
     if E.a_invariants() != (0,6,0,1,0):
         raise NotImplementedError
     return E.isogeny(E.lift_x(ZZ(1)), codomain=E)
 
 def generate_torsion_points(E, a, b):
+    p = E.base_ring().characteristic()
     def get_l_torsion_basis(E, l):
         n = (p+1) // l
         return (n*G for G in E.gens())
@@ -27,6 +26,7 @@ def check_torsion_points(E, a, b, P2, Q2, P3, Q3):
     assert P3.weil_pairing(Q3, 3**b)**(3**(b-1)) != 1
 
 def gen_bob_keypair(E_start, b, P2, Q2, P3, Q3):
+    p = E_start.base_ring().characteristic()
     # generate challenge key
     bobs_key = randint(0,3**b)
     K = P3 + bobs_key*Q3

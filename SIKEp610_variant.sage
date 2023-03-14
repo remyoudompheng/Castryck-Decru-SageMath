@@ -57,7 +57,6 @@ opts = argp.parse_args()
 print("Instantiate E_start...")
 a, b = 305, 192
 p = 2^a*3^b - 1
-public_values_aux.p = p
 
 Fp2.<i> = GF(p^2, modulus=x^2+1)
 R.<x> = Fp2[]
